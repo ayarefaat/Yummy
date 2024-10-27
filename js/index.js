@@ -21,6 +21,7 @@ function hideSideBar(){
     $('.sidebar').animate({'left':`-${sidemenu}px`},800);
     $('span.collapse').css('display','none');
     $('span.bars').css('display','inline-block');
+    $('ul').addClass("animate__fadeOutDown").removeClass("animate__slideInUp");
 }
 //^ ===================Hiding Sidebar=============//
 
@@ -388,8 +389,8 @@ searchName.on('click',function(){
         loaderContainer.css({left:'6%'})
         loaderContainer.fadeIn(1000,function(){
             generateMealCard(ingredients)
+            loaderFadeOut()
         });
-        loaderFadeOut()
      };
 
      //*Contact Us
