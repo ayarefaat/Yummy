@@ -86,7 +86,7 @@ let tags=[];
 function getIngredients(){
     let item="";
     let ingredientsContainer=$('section.meals .meal-details .container .row .item .details .ingredients')
-    for(let i=1;i<ingredients.length;i++){
+    for(let i=0;i<ingredients.length;i++){
           item+=`<span class="me-2 badge p-2 mb-2">${measures[i]} ${ingredients[i]}</span>`
      }
       return ingredientsContainer.html(`${item}`);
@@ -511,6 +511,7 @@ searchName.on('click',function(){
         });
         //!check fields of all inputs and display error
         function checkInput(regex,element){
+            console.log(element)
             if(validate(regex,element.target.value)){
                 $(element.target).next('.error').removeClass('d-block')
                 $(element.target).next('.error').addClass('d-none');
