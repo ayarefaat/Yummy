@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fontawesome -->
+     <link rel="stylesheet" href="styles/all.min.css">
+     <!-- bootstrap -->
+      <link rel="stylesheet" href="styles/bootstrap.min.css">
+      <!-- custom style -->
+       <link rel="stylesheet" href="styles/style.css">
+       <!-- Animate.css -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <title>Yummy</title>
+</head>
+<body>
+    <section class="meals position-relative">
+        <div class="loading ">
+            <span class="loader"></span>
+        </div>
+        <div class="sidebar position-fixed top-0 left-0 bottom-0 d-flex z-3">
+            <div class="menu d-flex flex-column justify-content-between text-white">
+                <ul class="list-unstyled animate__animated ">
+                    <li class="search mb-3">Search</li>
+                    <li class="categories mb-3">Categories</li>
+                    <li class="area mb-3">Area</li>
+                    <li class="ingredients mb-3">Ingredients</li>
+                    <li class="contact mb-3">Contact Us</li>
+                </ul>
+                <div class="info">
+                    <div class="social">
+                        <span><i class="fa-brands fa-facebook"></i></span>
+                        <span><i class="fa-brands fa-twitter"></i></span>
+                        <span><i class="fa-solid fa-globe"></i></span>
+                    </div>
+                    <p>Copyright Â© 2019 All Rights Reserved.</p>
+                </div>
+            </div>
+            <div class="side-tab bg-white d-flex flex-column justify-content-between align-items-center py-3 px-2">
+                <div class="logo">
+                    <a href="index.html"><img src="imgs/logo.png" alt="yummy face emoji"></a>
+                </div>
+                <div class="close">
+                    <span class="bars"><i class="fa-solid fa-bars"></i></span>
+                    <span class="collapse"><i class="fa-solid open-close-icon fa-2x fa-x"></i></span>
+                </div>
+                <div class="icons d-flex flex-column">
+                    <span><i class="fa-solid fa-globe"></i></span>
+                    <span><i class="fa-solid fa-share-nodes"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="meal-details min-vh-100 position-relative">
+            <div class="container">
+                
+                <div class="search-inputs d-flex gap-2 mb-4"></div>
+                <div class="row py-5 m-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

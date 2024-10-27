@@ -1,0 +1,200 @@
+:root{
+    --main-color:#0d0d0d;
+    --animate-duration: 800ms;
+    --animate-delay: 1s;
+}
+html{
+    scroll-behavior: smooth;
+}
+a{
+    color: inherit !important;
+}
+span{
+    display: inline-block;
+}
+section.meals{
+     .loading{
+    height: 100vh;
+    width: 100%;
+    background-color: var(--main-color);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .loader {
+        color: #fff;
+        font-size: 10px;
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+        position: relative;
+        text-indent: -9999em;
+        animation: mulShdSpin 1.3s infinite linear;
+        transform: translateZ(0);
+      }
+   }
+    div.sidebar{
+        background-color:var(--main-color) ;
+        .menu{
+            padding:1.75rem 1.5rem 1.5rem;
+            .info{
+                p{
+                    max-width: 13.75rem;
+                }
+            }
+            ul{
+                li{
+                    cursor: pointer;
+                }
+            }
+        }
+        .side-tab{
+            .logo{
+                img{
+                    width: 50px;
+                }
+            }
+            .close{
+                cursor: pointer;
+                span.bars{
+                    font-size: 2rem;
+                }
+                .collapse{
+                    display: none;
+                }
+            }
+        }
+    }
+    .meal-details{
+        background-color: var(--main-color);
+        .row{
+            .item{
+                cursor: pointer;
+                .image{
+                    overflow: hidden;
+                    cursor: pointer;
+                    .cover{
+                        overflow: hidden;
+                        top: 100%;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: #f9f6f6ca;
+                        transition: top 0.6s ease;
+                        -webkit-transition: top 0.6s ease;
+                        -moz-transition: top 0.6s ease;
+                        -ms-transition: top 0.6s ease;
+                        -o-transition: top 0.6s ease;
+}
+                    &:hover{
+                        .cover{
+                            top: 0;
+                        }
+                    }
+                }
+                .desc{
+                    h3{
+                        font-size: 2rem;
+                    }
+                }
+                .details{
+                    .ingredients{
+                        span{
+                            background-color: #cff4fc;
+                            color: var(--main-color);
+                            font-size: 16px;
+                        }
+                    }
+                    h3.tags{
+                        span{
+                            background-color: #f8d7da;
+                            color: #842029;
+                            font-size: 16px                            ;
+                        }
+                    }
+                }
+                p.category-desc{
+                    font-size: 16px;
+                }
+            }
+            form{
+                margin-top: 9rem;
+                .row{
+                    .error{
+                        background-color: #f8d7da;
+                        color: #842029;
+                    }
+                }
+                button{
+                    &:hover{
+                        color: #fff !important;
+                    }
+                }
+            }
+        }
+        input.form-control{
+            color: #ced4da;
+            border-color: #ced4da;
+            &:focus{
+                box-shadow: none;
+            }
+            &::placeholder{
+                color: #69757d !important;
+            }
+        }
+    }
+  
+      
+      
+    }
+    @keyframes mulShdSpin {
+      0%,
+      100% {
+        box-shadow: 0 -3em 0 0.2em, 
+        2em -2em 0 0em, 3em 0 0 -1em, 
+        2em 2em 0 -1em, 0 3em 0 -1em, 
+        -2em 2em 0 -1em, -3em 0 0 -1em, 
+        -2em -2em 0 0;
+      }
+      12.5% {
+        box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 
+        3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, 
+        -2em 2em 0 -1em, -3em 0 0 -1em, 
+        -2em -2em 0 -1em;
+      }
+      25% {
+        box-shadow: 0 -3em 0 -0.5em, 
+        2em -2em 0 0, 3em 0 0 0.2em, 
+        2em 2em 0 0, 0 3em 0 -1em, 
+        -2em 2em 0 -1em, -3em 0 0 -1em, 
+        -2em -2em 0 -1em;
+      }
+      37.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+         3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, 
+         -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+      }
+      50% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+         3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, 
+         -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+      }
+      62.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+         3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, 
+         -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+      }
+      75% {
+        box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 
+        3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, 
+        -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+      }
+      87.5% {
+        box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 
+        3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, 
+        -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+      }
+    }
