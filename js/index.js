@@ -1,6 +1,7 @@
 //^ ============Hiding side bar=============//
 let sidemenu =$('.sidebar .menu').outerWidth();
-console.log(sidemenu);
+let sideTab =$('.sidebar .side-tab').outerWidth();
+console.log(sidemenu,sideTab);
 
 $('.sidebar').css('left',`-${sidemenu}px`);
 
@@ -28,6 +29,7 @@ function hideSideBar(){
 //!================Loading=======================//
 let loaderContainer=$('.loading');
 console.log(loaderContainer)
+loaderContainer.css({left:sideTab})
 
 function loaderFadeOut(){
     loaderContainer.fadeOut(1000);
@@ -128,7 +130,7 @@ async function getMealDetails(id){
     console.log(ingredients,measures,tags)
     console.log(mealReciepe);
 
-    loaderContainer.css({left:'6%'})
+    loaderContainer.css({left:sideTab})
     loaderContainer.fadeIn(1000,function(){
         mainSectionContainer.html(`
              <div class="item col-lg-4 text-white">
@@ -173,22 +175,22 @@ async function getMealDetails(id){
 let categories=$('ul li.categories');
 let categoriesList;
 categories.on('click',async function getAllCategories(){
+    //hiding search inputs
+    $('.meal-details .search-inputs').html('');
+
     let categoriesContainer =$('.meal-details .row');
-    // loaderFadeIn()
     hideSideBar();
     let response=await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
     if(response.status===200){
         let categoriesResponse=await response.json();
         categoriesList=categoriesResponse.categories;
         console.log(categoriesList);
-        // loaderFadeOut()
     }
-    // $('section.meals .meal-details .container .row').html('');
     categoriesContainer.html('');
     let category=''
     for(let i=0;i<categoriesList.length;i++){
         category+=`
-        <div class="item col-lg-3 col-md-4 col-sm-6 mb-4" onclick=getCategory("${categoriesList[i].strCategory}")>
+        <div class="item col-lg-3 col-md-4 col-sm-6 mb-4" onclick="getCategory('${categoriesList[i].strCategory}')">
              <div class="inner">
                             <div class="image position-relative rounded-3">
                                 <img src=${categoriesList[i].strCategoryThumb} class="w-100 rounded-3" alt="">
@@ -201,7 +203,7 @@ categories.on('click',async function getAllCategories(){
                     </div>
         `
     };
-    loaderContainer.css({left:'6%'})
+    loaderContainer.animate({left:sideTab},1000)
     loaderContainer.fadeIn(1000,function(){
         categoriesContainer.html(category)
         loaderFadeOut()
@@ -210,8 +212,8 @@ categories.on('click',async function getAllCategories(){
 
 //! Filter by Category
 async function getCategory(category){
-    hideSideBar()
-    console.log(category)
+    hideSideBar();
+    console.log(category);
     let response=await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
     let categoryData;
     if(response.status===200){
@@ -220,10 +222,10 @@ async function getCategory(category){
         console.log(categoryInfo, categoryData);
     }
     loaderContainer.fadeIn(1000,function(){
-        loaderContainer.css({left:'6%'})
+        loaderContainer.animate({left:sideTab},500)
         generateMealCard(categoryData)
+        loaderFadeOut()
     });
-    loaderFadeOut()
 }
 
 
@@ -256,14 +258,19 @@ searchName.on('click',function(){
             let mealData;
         if(response.status===200){
             let data=await response.json();
-            mealData=data.meals!=null?data.meals:[];
+            mealData=data.meals
             console.log(mealData);
         }
-        loaderContainer.css({left:'6%',top:'10%'})
-        loaderContainer.fadeIn(1000,function(){
-            generateMealCard(mealData);
-            loaderFadeOut()
-        });
+        if(mealData!=null){
+
+            loaderContainer.fadeIn(1000,function(){
+                generateMealCard(mealData);
+                loaderFadeOut()
+            });
+        }else{
+            loaderFadeIn()
+        }
+        loaderContainer.css({left:sideTab,top:'10%'})
     });
 
     //^Search By letter
@@ -280,7 +287,7 @@ searchName.on('click',function(){
                     mealData=data.meals!=null?data.meals:[];
                     console.log(mealData)
                 }
-                loaderContainer.css({left:'6%',top:'10%'})
+                loaderContainer.css({left:sideTab,top:'10%'})
                 loaderContainer.fadeIn(1000,function(){
                     generateMealCard(mealData);
                     loaderFadeOut()
@@ -294,7 +301,9 @@ searchName.on('click',function(){
     //!Get all Area
     let areaElement=$('ul li.area');
     areaElement.on('click',async function getAllAreas(){
+        $('.meal-details .search-inputs').html('');
         let response=await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`);
+        hideSideBar();
         let areaData;
         if(response.status===200){
             let data=await response.json();
@@ -302,24 +311,24 @@ searchName.on('click',function(){
             console.log(data,areaData)
         }
         $('section.meals .meal-details .container .row').html('');
-        hideSideBar();
         let elementContainer=$('.meal-details .row');
         let element="";
         for(let i=0;i<areaData.length;i++){
             element+=`
-            <div class="item col-lg-3 col-md-4 col-sm-6 mb-4 text-center text-white" onclick=getMealsByArea("${areaData[i].strArea}")>
+            <div class="item col-lg-3 col-md-4 col-sm-6 mb-4 text-center text-white" onclick="getMealsByArea('${areaData[i].strArea}')">
                 <div class="inner">
                      <p><span class="icon display-3"><i class="fa-solid fa-house-laptop"></i></span></p>
                      <h3>${areaData[i].strArea}</h3>
                 </div>
             </div>
             `
-            loaderContainer.css({left:'6%'})
+           
+        }
+         loaderContainer.animate({left:sideTab},1000)
             loaderContainer.fadeIn(1000,function(){
             elementContainer.html(element)
             loaderFadeOut()
         });
-        }
 
      });
 
@@ -334,7 +343,7 @@ searchName.on('click',function(){
             mealsArea=data.meals
             console.log(mealsArea)
         }
-        loaderContainer.css({left:'6%'})
+        loaderContainer.css({left:sideTab})
         loaderContainer.fadeIn(1000,function(){
             generateMealCard(mealsArea)
             loaderFadeOut()
@@ -345,6 +354,7 @@ searchName.on('click',function(){
 
      let ingredientsElement=$('ul li.ingredients');
      ingredientsElement.on('click',async function getAllIngredients(){
+        $('.meal-details .search-inputs').html('');
          let response=await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`);
          let ingredientsData;
          if(response.status===200){
@@ -358,7 +368,7 @@ searchName.on('click',function(){
          let element="";
          for(let i=0;i<ingredientsData.length;i++){
              element+=`
-             <div class="item col-lg-3 col-md-4 col-sm-6 mb-4 text-center text-white" onclick=getMealByIngredients("${ingredientsData[i].strIngredient}")>
+             <div class="item col-lg-3 col-md-4 col-sm-6 mb-4 text-center text-white" onclick="getMealByIngredients('${ingredientsData[i].strIngredient}')">
                  <div class="inner">
                       <p class="mb-0"><span class="icon display-3"><i class="fa-solid fa-drumstick-bite"></i></span></p>
                       <h3>${ingredientsData[i].strIngredient}</h3>
@@ -366,14 +376,13 @@ searchName.on('click',function(){
                  </div>
              </div>
              `
-            loaderContainer.css({left:'6%'})
+            
+         }
+         loaderContainer.animate({left:sideTab},1000)
             loaderContainer.fadeIn(1000,function(){
               elementContainer.html(element)
               loaderFadeOut()
-            }
-    
-    );
-         }
+            });
  
       });
 
@@ -386,7 +395,7 @@ searchName.on('click',function(){
             ingredients=data.meals
             console.log(data)
         }
-        loaderContainer.css({left:'6%'})
+        loaderContainer.css({left:sideTab})
         loaderContainer.fadeIn(1000,function(){
             generateMealCard(ingredients)
             loaderFadeOut()
@@ -407,6 +416,7 @@ searchName.on('click',function(){
 
      contactButton.on('click',function(){
         hideSideBar();
+        $('.meal-details .search-inputs').html('');
         contactContainer.html(`
             <form class="">
               <div class="row m-auto">
