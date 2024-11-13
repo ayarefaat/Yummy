@@ -502,10 +502,18 @@ searchName.on('click',function(){
         });
         //*Re-password Field
         $('input.re-password').on('keyup',function(e){
-            checkInput(passwordRegex,e);
-            if(e.target.value!==$('input.password').val()){
-                $(e.target).next('.error').removeClass('d-none')
-                $(e.target).next('.error').addClass('d-block');
+            let check=checkInput(passwordRegex,e);
+            console.log(check)
+            if(check===false){
+                $(e.target).next('.error').html("Enter valid password")
+            }else{
+                if(e.target.value!==$('input.password').val()){
+                    $('button[type="button"]').attr('disabled',true)
+                    $(e.target).next('.error').removeClass('d-none').addClass('d-block')
+                    $(e.target).next('.error').html("Doesn't match with Password")
+                }else{
+                    $('button[type="button"]').attr('disabled',false)
+                }
             }
             console.log($('input.password').val());
         });
@@ -513,15 +521,12 @@ searchName.on('click',function(){
         function checkInput(regex,element){
             console.log(element)
             if(validate(regex,element.target.value)){
-                $(element.target).next('.error').removeClass('d-block')
-                $(element.target).next('.error').addClass('d-none');
+                $(element.target).next('.error').removeClass('d-block').addClass('d-none')
                 enableSubmitBtn()
                 return true
             }else{
-                $(element.target).next('.error').removeClass('d-none')
-                $(element.target).next('.error').addClass('d-block');
+                $(element.target).next('.error').removeClass('d-none').addClass('d-block');
                 enableSubmitBtn()
-
                 return false
             }
         }
@@ -542,7 +547,7 @@ searchName.on('click',function(){
         
         function validate(regex,element){
             if(regex.test(element)){
-                console.log(regex,element);
+                // console.log(regex,element);
                 console.log('match')
                 return true;
             }else{
